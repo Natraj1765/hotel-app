@@ -1,0 +1,332 @@
+query productsQuery($productSearch: ProductSearchInput!, $currency: String, $showingResultsFrom: Int!, $resultsPerPage: Int!, $sortingOrder: FilterSortingOrderEnum!, $withShipContent: Boolean = false) {
+  products(packageProductRequest: {metaAttributeFilter: {currency: $currency}, pagination: {resultsPerPage: $resultsPerPage, showingResultsFrom: $showingResultsFrom}, productSearch: $productSearch, sortingOrder: $sortingOrder}) {
+    pagination {
+      resultsPerPage
+      resultsTotal
+      showingResultsFrom
+      __typename
+    }
+    packageProducts {
+      hotelContent {
+        description{
+          full
+          sections{
+            name
+          }
+        }
+         logo{
+             sizes{
+                url
+              }
+
+            }
+        crsCode
+        timeToAirport
+        distanceToAirport
+        distanceToBeach
+        climate {
+          avgAirTemp
+          avgWaterTemp
+          __typename
+        }
+        ...baseImages
+        __typename
+      }
+      shipContent @include(if: $withShipContent) {
+        ...baseShipImages
+        __typename
+      }
+      topOffer {
+        ...tsbobCollectionOfferFields
+        __typename
+      }
+      alternativeOffer {
+        sourceCode
+        price {
+          amount
+          perPersonAmount
+          taxAmount
+          __typename
+        }
+        __typename
+      }
+      hotel {
+        name
+        giataId
+        references {
+          iffCodes
+          __typename
+        }
+        hotelAttributes {
+          hotelAttributes {
+            label
+            code
+            __typename
+          }
+          __typename
+        }
+        category
+        location {
+         geoCode{
+                latitude
+                longitude
+                 }
+          region {
+            name
+            __typename
+          }
+          country {
+            name
+            __typename
+          }
+          city {
+            name
+            __typename
+          }
+          climate {
+            avgAirTemp
+            avgWaterTemp
+            temperatureUnit
+            __typename
+          }
+          __typename
+        }
+        ratings {
+          provider
+          providerProductId
+          rating {
+            name
+            value
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment tsbobCollectionOfferFields on Offer {
+  sourceCode
+  hash
+  isInFavorites
+  hotelOfferCategory
+  lengthOfStay
+  offerStartDate
+  hotelContentId
+  tourOperator {
+    name
+    code
+    __typename
+  }
+  offerStart {
+    date
+    __typename
+  }
+  offerEnd {
+    date
+    __typename
+  }
+  rooms {
+    room {
+      name
+      localizedName
+      opCode
+      nbcAttributes {
+        code
+        name
+        icon
+        localizedName
+        __typename
+      }
+      board {
+        boardKey
+        label
+        code
+        opCode
+        name
+        __typename
+      }
+      codes {
+        label
+        code
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  price {
+    amount
+    perPersonAmount
+    perNightAmount
+    taxAmount
+    discountInfo {
+      ...discountInfoFields
+      __typename
+    }
+    __typename
+  }
+  departure {
+    ...tsbobCollectionOfferFlights
+    __typename
+  }
+  return {
+    ...tsbobCollectionOfferFlights
+    __typename
+  }
+  __typename
+}
+
+fragment tsbobCollectionOfferFlights on Flight {
+  departureAirport {
+    name
+    code
+    __typename
+  }
+  arrivalAirport {
+    name
+    code
+    __typename
+  }
+  airline {
+    code
+    name
+    __typename
+  }
+  arrivalDateTime {
+    date
+    time
+    __typename
+  }
+  departureDateTime {
+    date
+    time
+    __typename
+  }
+  duration
+  stopOver
+  flightSegments {
+    flightNumber
+    arrivalDateTime {
+      date
+      time
+      __typename
+    }
+    departureDateTime {
+      date
+      time
+      __typename
+    }
+    departureAirport {
+      name
+      code
+      __typename
+    }
+    arrivalAirport {
+      name
+      code
+      __typename
+    }
+    airline {
+      code
+      name
+      __typename
+    }
+    duration
+    __typename
+  }
+  __typename
+}
+
+fragment discountInfoFields on DiscountInfo {
+  fullAmount
+  fullDiscountPercentage
+  discountAmount
+  discountReason
+  discountAmountPerNight
+  perNightFullAmount
+  perNightDiscountPercentage
+  __typename
+}
+
+fragment baseImages on OfferBasedHotelContent {
+  mainImage {
+    preview: proxyImageForSize(width: 10, height: 10) {
+      url
+      __typename
+    }
+    default: proxyImageForSize(width: 540, height: 400) {
+      url
+      __typename
+    }
+    default2x: proxyImageForSize(width: 766, height: 514) {
+      url
+      __typename
+    }
+    __typename
+  }
+  images {
+   original: sourceImageForSize(width: 1820, height: 1210) {
+         size {
+           width
+           height
+           __typename
+         }
+         url
+         __typename
+     }
+    preview: proxyImageForSize(width: 10, height: 10) {
+      url
+      __typename
+    }
+    default: proxyImageForSize(width: 540, height: 400) {
+      url
+      __typename
+    }
+    default2x: proxyImageForSize(width: 766, height: 514) {
+      url
+      __typename
+    }
+    __typename
+  }
+
+  __typename
+}
+
+fragment baseShipImages on OfferBasedShipContent {
+  mainImage {
+    preview: proxyImageForSize(width: 10, height: 10) {
+      url
+      __typename
+    }
+    default: proxyImageForSize(width: 540, height: 400) {
+      url
+      __typename
+    }
+    default2x: proxyImageForSize(width: 766, height: 514) {
+      url
+      __typename
+    }
+    __typename
+  }
+  images {
+    preview: proxyImageForSize(width: 10, height: 10) {
+      url
+      __typename
+    }
+    default: proxyImageForSize(width: 540, height: 400) {
+      url
+      __typename
+    }
+    default2x: proxyImageForSize(width: 766, height: 514) {
+      url
+      __typename
+    }
+    __typename
+  }
+  __typename
+}

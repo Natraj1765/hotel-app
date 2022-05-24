@@ -1,0 +1,3 @@
+mutation addToFavorites($giataId: Int!, $offer: OfferInput!, $productSearch: JSON!) {
+result: addFavorite(giataId: $giataId, offer: $offer, productSearch: $productSearch)
+}

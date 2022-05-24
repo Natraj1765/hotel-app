@@ -1,0 +1,1823 @@
+type Activity {
+  name: String
+  providerId: String
+  images: [NbcHotelContentImage]
+}
+
+type Address {
+  postalCode: String
+  # Street name and house number.
+  street: String
+}
+
+type Airline {
+  # The name of the airline (e.g. Condor).
+  name: String
+  # The IATA airline code (e.g. AB for AirBerlin).
+  code: String
+}
+
+type Airport {
+  # The airport name (e.g. Palma de Mallorca).
+  name: String
+  # The 3-letter IATA airport code.
+  code: String
+  lat: Float
+  lng: Float
+}
+
+type BaseNbcHotelContent implements NbcHotelContent {
+  name: String
+  providerId: String
+  crsCode: String
+  ratingProviderId: String
+  category: String
+  location: NbcLocation
+  contentProvider: String
+  contentProviderExtension: JSON
+  description: NbcHotelContentDescription
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+  videos: [NbcHotelContentVideo]
+}
+
+type BaseNbcShipContent implements NbcShipContent {
+  name: String
+  description: String
+  restaurantDescription: String
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+  ratingProviderId: String
+  providerId: String
+  crsCode: String
+  factSheet: FileType
+  water: Water
+  guideLanguages: [NbcGuideLanguage]
+  brand: Brand
+  cabins: [NbcCabin]
+  climate: NbcClimate
+  nbcAttributes: [NbcHotelContentAttribute]
+  longestRoute: [NbcItineraryPoint]
+}
+
+type BestOffer {
+  hotel: Hotel
+  offer: Offer
+  groupKey: VariantEnum
+  groupValue: String
+}
+
+# The board type (e.g. Half Board). If multiple GT codes are available,
+# the first code is used to identify the textual designation.
+type Board {
+  identifier: OfferHotelContentId
+  # Board codes.
+  code: String
+  label: String
+  # The tour operator specific board code (e.g. H).
+  opCode: String
+  boardKey: String
+  description: String
+  boardOpCode: String
+  localizedName: String
+  name: String
+}
+
+type BookingAmount {
+  value: Float
+  currency: String
+}
+
+input BookingAmountInput {
+  value: Float
+  currency: String
+}
+
+type BookingAmounts {
+  total: BookingAmount
+  personAmounts: [BookingPersonAmount]
+}
+
+input BookingAmountsInput {
+  total: BookingAmountInput
+  personAmounts: [BookingPersonAmountInput]
+}
+
+type BookingPersonAmount {
+  amount: BookingAmount
+  refId: Int
+}
+
+input BookingPersonAmountInput {
+  amount: BookingAmountInput
+  refId: Int
+}
+
+input BookingTravellerInput {
+  type: BookingTravellerType!
+  refId: Int
+  age: Int
+}
+
+enum BookingTravellerType {
+  ADULT
+  CHILD
+  INFANT
+}
+
+enum BookingTypeEnum {
+  PACKAGE
+  HOTEL_ONLY
+}
+
+type Brand {
+  id: Int
+  name: String
+  providerId: String
+  logo: NbcHotelContentImage
+  logoInverted: NbcHotelContentImage
+}
+
+# F - Full-fare First class
+# J - Full-fare Business class
+# W - Full-fare Premium Economy class
+# Y - Full-fare Economic class
+# U - Unknown
+enum CabinClass {
+  F
+  J
+  W
+  Y
+  U
+}
+
+# F - Full-fare First class
+# J - Full-fare Business class
+# W - Full-fare Premium Economy class
+# Y - Full-fare Economic class
+# U - Unknown
+enum CabinClassFilter {
+  F
+  J
+  W
+  Y
+  U
+}
+
+# F - Full-fare First class
+# J - Full-fare Business class
+# W - Full-fare Premium Economy class
+# Y - Full-fare Economic class
+# U - Unknown
+enum CabinClassFilterInput {
+  F
+  J
+  W
+  Y
+  U
+}
+
+type City {
+  identifier: OfferHotelContentId
+  # The original Fusion city name w/o other schemas override.
+  originalName: String
+  # GIATA city code.
+  code: Int
+  name: String
+}
+
+type Climate {
+  avgAirTemp: Int
+  avgWaterTemp: Int
+  temperatureUnit: String
+}
+
+type Country {
+  # The ISO 3166-1 country code (e.g. "DE" for Germany, "PT" for Portugal, "ES" for Spain, etc.).
+  code: String
+  name: String
+}
+
+enum CruiseFormDataMessageTypeEnum {
+  ALL
+  GT_CRUISES
+  GT_CABIN_CODES
+  GT_SHIPS
+  GT_SHIP_ATTRIBUTES
+  GT_GUIDE_LANGUAGES
+  GT_ACTIVITIES
+}
+
+input CruiseFormDataRequestInput {
+  msgTypes: [CruiseFormDataMessageTypeEnum!]
+}
+
+type CruiseFormDataResponse {
+  ships: [BaseNbcShipContent]
+  shipAttributes: [NbcShipAttribute]
+  guideLanguages: [NbcGuideLanguage]
+  activities: [Activity]
+  cruises: [NbcCruise]
+}
+
+input CurrencyExchangeInput {
+  from: String!
+  to: String!
+}
+
+type CurrencyExchangeResponse {
+  rate: Float
+}
+
+# A date string in YYYY-MM-DD format.
+scalar Date
+
+type DateAndTime {
+  date: Date!
+  time: String
+}
+
+input DateInput {
+  date: Date!
+}
+
+input DateRangeFilterInput {
+  minDate: Date
+  maxDate: Date
+}
+
+input DateTimeRangeFilterInput {
+  dateRangeFilter: DateRangeFilterInput
+  timeRangeFilter: TimeRangeFilterInput
+  daysOfWeek: [DayOfWeekFilterInput]
+}
+
+enum DayOfWeekFilter {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
+
+enum DayOfWeekFilterInput {
+  SUN
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+}
+
+type DepartureAirport {
+  label: String
+  value: String
+  data: DepartureAirportData
+  children: [DepartureAirport!]
+}
+
+type DepartureAirportData {
+  autocompleteLabel: String
+  city: String
+  country: String
+  lat: Float
+  lon: Float
+}
+
+type DepartureAirportGroup {
+  label: String
+  value: String
+  children: [DepartureAirport!]
+}
+
+type DestinationValueOption {
+  label: String
+  value: String
+  children: [DestinationValueOption!]
+  data: StringValueOptionData
+  providerInfo: [ProviderInfoType!]
+}
+
+type DestinationValueOptionData {
+  hidden: Boolean
+}
+
+# Information on discounts
+type DiscountInfo {
+  # The full amount of the offer (including discount)
+  fullAmount: Float
+  # Full Rounded discount percentage
+  fullDiscountPercentage: Int
+  # Discounted nightly rates if applicable.
+  nightlyRates: [NightlyRate]
+  # Full Rounded per night discount percentage
+  perNightDiscountPercentage: Int
+  # Full amount per night (including discount)
+  perNightFullAmount: Float
+  # If the Price attribute is set to "discount" in the request or promotion code is present,
+  # the DiscountAmount attribute contains the discounts in the response.
+  discountAmount: Float
+  # Discount reasoning string
+  discountReason: String
+  # Specifies if provided discount amount is per-night based or total
+  discountAmountPerNight: Boolean
+}
+
+# Additional services and transfer.
+type Extra {
+  description: String
+  price: Price
+  # The type of the Service.
+  type: String
+  # The SubType.
+  subType: String
+  # The minimal duration, for example in minutes.
+  durationMin: String
+  # The maximum duration, for example in minutes.
+  durationMax: String
+  # Distance in kilometers (e.g. for transfers).
+  distance: Int
+  # The 3-letter IATA airport code.
+  airportCode: String
+  # Whether the Extra is included in the price.
+  included: Boolean
+}
+
+# Facet result. Count of how many offers with a named value (e.g. GT03-SAUN) for the given field
+# (e.g. attributes) are available.
+type Facet {
+  # The name of the field of the facet (e.g. attributes) as it was requested.
+  field: String!
+  # The value of the field of the facet (e.g. GT03-SAUN).
+  fieldValue: String!
+}
+
+type FavoritesItem {
+  productSearch: JSON!
+  offer: JSON!
+  hotel: Hotel
+  hotelContent: OfferBasedHotelContent
+  shipContent: OfferBasedShipContent
+}
+
+type FavoritesListData {
+  id: ID
+  # Total count of items in the store.
+  count: Int
+  # Indicates if the list of favorites belongs to the requesting user.
+  ownIdentity: Boolean
+  items: [FavoritesItem]
+}
+
+type FileType {
+  id: Int
+  description: String
+  url: String
+  mime: String
+  size: String
+}
+
+enum FilterSortingOrderEnum {
+  PRICE_ASC
+  PRICE_DESC
+  LENGTH_OF_STAY_ASC
+  LENGTH_OF_STAY_DESC
+  START_DATE_ASC
+  START_DATE_DESC
+  DESTINATION_NAME_ASC
+  DESTINATION_NAME_DESC
+  HOTEL_NAME_ASC
+  HOTEL_NAME_DESC
+  HOTEL_CATEGORY_ASC
+  HOTEL_CATEGORY_DESC
+  HOTEL_RATING_ASC
+  HOTEL_RATING_DESC
+  DURATION_ASC
+  DURATION_DESC
+}
+
+type Flight {
+  departureAirport: Airport
+  arrivalAirport: Airport
+  airline: Airline
+  price: Price
+  # If the flight consists of multiple segments, the individual sub-segments are returned here.
+  flightSegments: [FlightSegment!]
+  departureDateTime: DateAndTime
+  arrivalDateTime: DateAndTime
+  # The flight code from the tour operator system.
+  flightCode: String
+  # The flight number.
+  flightNumber: String
+  # The flight label (airplane identifier).
+  flightLabel: String
+  # The flight key (for identifying the air connection). Tour operator specific.
+  flightKey: String
+  # A FlightID that uniquely identifies a flight. The Id is peakwork specific.
+  flightID: String
+  # The booking class.
+  bookingClass: String
+  # The TOMA booking code used for the flight.
+  bookingCode: String
+  cabinClass: CabinClass
+  # Approximate distance to the destination in kilometers.
+  distance: Int
+  # Duration of the flight in minutes.
+  duration: Int
+  # Priority of the physical flight. The flight with highest priority is picked.
+  priority: Int
+  # The maximum number of stopovers.
+  stopOver: Int
+  # Tour operator that provides the flight.
+  provider: String
+  # The tariff class of the flight.
+  tariffClass: String
+  # If the ShowSoldout attribute is set in the request, offers with no allotments will be returned as well.
+  # These offers will have the SoldOut attribute set to \"true\" in the response.
+  soldOut: Boolean
+  # The code of the data supplier as it is specified within the Peakwork Panel.
+  localSupplier: String
+}
+
+input FlightAlternativesRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  productSearch: ProductSearchInput!
+  offer: OfferUpsellInput
+}
+
+type FlightAlternativesResponse {
+  facets: [Facet!]
+  pagination: PagingGroup
+  bestOffers: [BestOffer!]
+}
+
+input FlightDetailsFilterAirlinesInput {
+  airlineCodes: [String!]
+  # Specifies if this filter should be applied inverted.
+  # If e.g. BA is requested and Inverted is set to true all airlines
+  # except BA will be considered in the result set.
+  inverted: Boolean!
+}
+
+input FlightDetailsFilterInput {
+  departureAirports: InvertibleAirportCodeFilterInput
+  arrivalAirports: InvertibleAirportCodeFilterInput
+  airlines: FlightDetailsFilterAirlinesInput
+  maxFlightDurationMinutes: Int
+  # The maximum number of stopovers. If 0 than assumes a direct flight.
+  maxNumberOfStops: Int
+  cabinClassFilter: [CabinClassFilterInput]
+}
+
+type FlightSegment {
+  departureAirport: Airport
+  arrivalAirport: Airport
+  departureDateTime: DateAndTime
+  arrivalDateTime: DateAndTime
+  # Indicates an overnight flight. If DurationAppliance=\"flight\",
+  # the number of nights in the hotel is reduced by the number of overnight flights.
+  offset: Int
+  # The flight number, e.g. LH1683.
+  flightNumber: String
+  # The booking class. e.g. K.
+  bookingClass: String
+  # The airline which executes the flight.
+  operatingCarrier: String
+  # The approximate distance in kilometers.
+  distance: Int
+  # The duration of the flight in minutes.
+  duration: Int
+  airline: Airline
+  # Airline name.
+  airlineName: String
+  cabinClass: CabinClass
+}
+
+enum FormDataMessageTypeEnum {
+  ALL
+  TOUR_OPERATORS
+  GLOBAL_TYPES
+  GT_ROOM_CODES
+  GT_BOARD_CODES
+  GT_ROOM_ATTRIBUTES
+  GT_HOTEL_ATTRIBUTES
+}
+
+input FormDataRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  msgTypes: [FormDataMessageTypeEnum!]
+  bookingType: BookingTypeEnum
+}
+
+type FormDataResponse {
+  globalTypes: [StringValueOption!]
+  globalTypesStatic: [GlobalTypeGroup!]
+  roomCodes: [StringValueOption!]
+  roomViews: [StringValueOption!]
+  roomCodesStatic: [StringValueOption!]
+  roomViewsStatic: [StringValueOption!]
+  boardCodes: [StringValueOption!]
+  boardCodesStatic: [StringValueOption!]
+  roomAttributes: [StringValueOption!]
+  hotelAttributes: [StringValueOption!]
+  tourOperators: [StringValueOption!]
+  destinations: [DestinationValueOption!]
+  departureAirports: [DepartureAirportGroup!]
+}
+
+type GeoCoordinates {
+  # The Longitude specified in metric units (e.g. 31.32342).
+  longitude: Float!
+  # The Latitude metric units (e.g. 23.23442).
+  latitude: Float!
+}
+
+type GlobalType {
+  code: String
+  mappings: [GlobalTypeMapping!]
+}
+
+type GlobalTypeAttribute {
+  code: String
+  label: String
+}
+
+type GlobalTypeData {
+  icon: String
+  hidden: Boolean
+}
+
+type GlobalTypeGroup {
+  label: String
+  value: String
+  data: GlobalTypeData
+  children: [StringValueOption!]
+}
+
+type GlobalTypeMapping {
+  sourceCode: String
+  value: String
+}
+
+type GlobalTypesRs {
+  globalTypes: [GlobalType!]
+}
+
+type Hotel {
+  identifier: OfferHotelContentId
+  # The original Fusion hotel name w/o other schemas override.
+  originalName: String
+  # The hotel chain (e.g. Best Western).
+  # chain: String
+  references: References
+  # Fusion utility field, replication of ReferenceType.giataCode.
+  giataId: Int!
+  hotelAttributes: HotelAttributes
+  location: Location
+  ratings: [Ratings!]
+  # The hotel category.
+  category: Float
+  # Codes for nearest airports.
+  nearestAirportCodes: String
+  hotelIds: [Int]
+  giataCodes: [Int]
+  iffCodes: [Int]
+  ratingProvider: String
+  ratingProductId: String
+  name: String
+}
+
+input HotelActivitiesFilterInput {
+  operator: HotelAttributesFilterOperatorEnum
+  hotelActivities: [String!]
+}
+
+# Hotel attributes. In the Hub configuration it can be specified,
+# whether hotel attributes from the Players or from the Hub shall be used.
+type HotelAttributes {
+  # The list of hotel attributes. (GT03-*)
+  hotelAttributes: [GlobalTypeAttribute!]
+  # Specifies the kind of operator used for combining list elements.
+  attributeOperator: HotelAttributesAttributeOperatorEnum
+  # Indicates, if the fully-qualified attribute name GT0*-.. should be used in both the request and the response
+  # (also applies to SubTypes). If \"false\", GT03- is assumed to be the prefix for the attribute
+  # (and ST03- for the SubType, if applicable). If \"true\", the prefix has to added there in the request.
+  # It is recommended to set FQN to true.
+  fullyQualifiedName: Boolean!
+}
+
+# Specifies the kind of operator used for combining list elements.
+enum HotelAttributesAttributeOperatorEnum {
+  and
+  or
+  parseTree
+  logicalExpression
+}
+
+input HotelAttributesFilterInput {
+  operator: HotelAttributesFilterOperatorEnum
+  hotelAttributes: [String!]
+}
+
+enum HotelAttributesFilterOperatorEnum {
+  AND
+  OR
+}
+
+input HotelCategoryFilterInput {
+  hotelCategoriesRange: HotelCategoryRangeFilterInput
+  hotelOfferCategoriesRange: HotelCategoryRangeFilterInput
+}
+
+input HotelCategoryRangeFilterInput {
+  minCategory: Float
+  maxCategory: Float
+}
+
+input HotelLanguagesFilterInput {
+  operator: HotelAttributesFilterOperatorEnum
+  hotelLanguages: [String!]
+}
+
+type HotelRatings {
+  scoreRecommendation: String
+  reviewsCount: Int
+  groups: [HotelRatingsGroup]
+  isReviewsQueryable: Boolean
+  provider: String
+}
+
+type HotelRatingsCategory {
+  # f.e. Location, Room, Service, etc.
+  name: String
+  # f.e. Great Location, Dirty Room, etc.
+  ratingText: String
+  # Rating in given scale.
+  score: Float
+  # Short facts about hotel category.
+  highlights: [String]
+  # Ratings for sub-categories.
+  # For location it can be rating how hotel is close to a beach.
+  subCategories: [HotelRatingsSubCategory]
+}
+
+type HotelRatingsGroup {
+  # f.e. single, couple, etc.
+  code: String
+  # Rating in given scale.
+  score: Float
+  # Recommendation of the category.
+  scoreRecommendation: String
+  # Ratings per category (f.e. room or location).
+  categories: [HotelRatingsCategory]
+  # Text facts about hotel. Can be used as a "Good to know" block.
+  highlights: [HotelRatingsGroupHighlight]
+}
+
+type HotelRatingsGroupHighlight {
+  # Facts can be positive and negative like Room could be cleaner.
+  isPositive: Boolean
+  # Fact content.
+  text: String
+}
+
+# An object containing multiple Ids to Identify a Hotel Ratings.
+scalar HotelRatingsIdentifier
+
+type HotelRatingsSubCategory {
+  # f.e. Location, Room, Service, etc.
+  name: String
+  # Rating in given scale.
+  score: Float
+}
+
+enum HotelReferenceCodeTypeEnum {
+  GIATA
+  IFF
+  OPIC
+  DRV
+  ICMS_ID
+}
+
+input HotelReferenceInput {
+  # The (list of) Code(s) for all tour operators.
+  hotelCodes: [Int!]
+  codeType: HotelReferenceCodeTypeEnum
+}
+
+type HotelReviewBrief {
+  ratingAllOver: Float
+  headline: String
+  title: String
+  firstName: String
+  age: String
+  monthOfTravel: String
+  yearOfTravel: String
+  travelledAs: String
+  conclusion: String
+  fullReviewUrl: String
+  ratingId: String
+}
+
+type HotelReviewFull {
+  ratingAllOver: Float
+  headline: String
+  title: String
+  firstName: String
+  age: String
+  monthOfTravel: String
+  yearOfTravel: String
+  travelledAs: String
+  conclusion: String
+  typeOfTravel: String
+  recommendation: Boolean
+  fullReviewUrl: String
+  groups: [HotelReviewGroup]
+}
+
+type HotelReviewGroup {
+  name: String
+  score: Float
+  conclusion: String
+}
+
+type HotelReviews {
+  list: [HotelReviewBrief]
+  pageInfo: Paging
+}
+
+input HotelSearchRequestInput {
+  query: String!
+  bookingType: BookingTypeEnum
+}
+
+type HotelSearchResultItem {
+  references: References
+  name: String
+  sourceCode: String
+}
+
+type HotelWithOffers {
+  hotel: Hotel!
+  offers: [Offer!]!
+  hotelContent(availableTourOperatorCodeList: [String!]): OfferBasedHotelContent
+  shipContent: OfferBasedShipContent
+  identifier: OfferHotelContentId
+  hotelRatingsIdentifier: HotelRatingsIdentifier
+  externalRatings(groupCodes: [String!] = []): OfferBasedHotelRatings
+}
+
+input InvertibleAirportCodeFilterInput {
+  airportCodes: [String!]
+  # Specifies if this filter should be applied inverted.
+  # If e.g. DUS is requested and Inverted is set to true all airports except for
+  # DUS will be considered in the result set.
+  inverted: Boolean!
+}
+
+type Itinerary {
+  name: String
+  providerId: String
+  days: [ItineraryDay]
+  itineraryPoints: [ItineraryPoint]
+}
+
+type ItineraryDay {
+  name: String
+  description: String
+  itineraryPoint: ItineraryPoint
+  images: [NbcHotelContentImage]
+}
+
+type ItineraryPoint {
+  name: String
+  description: String
+  lat: Float
+  lng: Float
+  images: [NbcHotelContentImage]
+  activities: [Activity]
+}
+
+scalar JSON
+
+type KeywordSearchDestination {
+  id: ID
+  groupLabels: [String]
+  label: String
+  value: String
+}
+
+type KeywordSearchGlobalType {
+  id: ID
+  label: String
+  value: String
+}
+
+type KeywordSearchHotel {
+  id: ID
+  label: String
+  references: References
+  bookingType: BookingTypeEnum
+}
+
+# An object containing data to identify KeywoardSearch
+scalar KeywordSearchIdentifier
+
+input KeywordSearchRequestInput {
+  query: String!
+  bookingType: BookingTypeEnum
+  maxDestinationLevel: Int
+}
+
+type KeywordSearchResponse {
+  identifier: KeywordSearchIdentifier
+  destinations: [KeywordSearchDestination]
+  globalTypes: [KeywordSearchGlobalType]
+  hotels: [KeywordSearchHotel]
+}
+
+type Location {
+  city: City
+  country: Country!
+  region: Region
+  geoCode: GeoCoordinates
+  address: Address
+  climate: Climate
+}
+
+input MetaAttributeFilterInput {
+  # Currency in format ISO 4217 (e.g. "EUR").
+  currency: String
+}
+
+type Mutation {
+  addFavorite(giataId: Int!, offer: OfferInput!, productSearch: JSON!): Boolean
+  removeFavoriteByHash(hash: String!): Boolean
+  newsletterSubscribe(
+    formValues: NewsletterSubscribeFormInput!
+  ): NewsletterResponse
+  newsletterConfirm(token: String!): NewsletterResponse
+  newsletterUnsubscribe(
+    formValues: NewsletterUnsubscribeFormInput!
+  ): NewsletterResponse
+}
+
+type NbcActivity {
+  name: String
+  providerId: String
+  images: [NbcHotelContentImage]
+}
+
+type NbcCabin {
+  providerId: String
+  name: String
+  description: String
+  nbcAttributes: [NbcHotelContentAttribute]
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+}
+
+type NbcCabinOverview {
+  description: String
+  cabins: [NbcCabin]
+}
+
+type NbcClimate {
+  avgAirTemp: Int
+  avgWaterTemp: Int
+}
+
+type NbcCruise {
+  id: Int
+  startDay: String
+  providerId: String
+  duration: Int
+  itinerary: NbcItinerary
+  tripFacts: [NbcTripFact]
+  ship: BaseNbcShipContent
+}
+
+type NbcDay {
+  id: Int
+  name: String
+  description: String
+  itineraryPoint: NbcItineraryPoint
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+}
+
+type NbcDestination {
+  name: String
+  code: String
+}
+
+type NbcGeoCoordinates {
+  # The Longitude specified in metric units (e.g. 31.32342).
+  longitude: Float!
+  # The Latitude metric units (e.g. 23.23442).
+  latitude: Float!
+}
+
+type NbcGuideLanguage {
+  name: String
+  code: String
+}
+
+interface NbcHotelContent {
+  contentProvider: String
+  contentProviderExtension: JSON
+  description: NbcHotelContentDescription
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+  videos: [NbcHotelContentVideo]
+}
+
+type NbcHotelContentAttribute {
+  code: String
+  name: String
+  localizedName: String
+  icon: String
+}
+
+type NbcHotelContentDescription {
+  # Contains all descriptions as text. Should be formatted for Giata MHG and MightyC.
+  full: String
+  # Contains various description sections such as location, room, sports, etc.
+  # Sections are different for different content providers.
+  sections: [NbcHotelContentDescriptionSection]
+}
+
+type NbcHotelContentDescriptionSection {
+  name: String
+  text: String
+}
+
+type NbcHotelContentImage {
+  # List of comma separated codes
+  tourOperatorCode: String
+  description: String
+  sizes: [NbcHotelContentImageForSize]
+  # Returns image URL for a given size prepared by an image proxy.
+  # For allowed image sizes see packages/nbc-middleware/src/config/allowedProxyImageSizes.json
+  proxyImageForSize(width: Int, height: Int): NbcHotelContentImageForSize
+  # Returns matching image URL from NBC provider for a given size.
+  sourceImageForSize(width: Int, height: Int): NbcHotelContentImageForSize
+}
+
+type NbcHotelContentImageForSize {
+  url: String
+  size: NbcHotelContentImageSize
+}
+
+type NbcHotelContentImageSize {
+  width: Int
+  height: Int
+}
+
+interface NBCHotelContentQueryInterface {
+  # hotelContentId should be taken from Offer.hotelContentId field.
+  offerHotelContent(hotelContentId: OfferHotelContentId!): NbcHotelContent
+  offerShipContent(hotelContentId: OfferHotelContentId!): NbcShipContent
+  hotelRatingGroupCodes: [String]
+
+}
+
+type NbcHotelContentVideo {
+  id: String
+  url: String
+  thumbnailUrl: String
+  thumbnailWithPlayButtonUrl: String
+  duration: Int
+  # List of comma separated codes
+  tourOperatorCode: String
+  type: String
+}
+
+interface NBCHotelRatingsQueryInterface {
+  # Returns list of ratings group codes that can be used in UI later (for example to show tabs).
+}
+
+type NbcInstagramImage {
+  id: String
+  mediaUrl: String
+  caption: String
+  mediaType: String
+  image: NbcHotelContentImage
+}
+
+type NbcItinerary {
+  id: Int
+  name: String
+  days: [NbcDay]
+  titlePoints: [NbcItineraryPoint]
+  itineraryPoints: [NbcItineraryPoint]
+}
+
+type NbcItineraryPoint {
+  id: Int
+  name: String
+  lng: Float
+  lat: Float
+  description: String
+  images: [NbcHotelContentImage]
+  activities: [NbcActivity]
+}
+
+type NbcLocation {
+  region: NbcDestination
+  country: NbcDestination
+  city: NbcDestination
+  geoCode: NbcGeoCoordinates
+}
+
+type NbcRoomOverview {
+  description: String
+  localizedDescription: String
+  rooms: [Room]
+}
+
+type NbcShipAttribute {
+  label: String
+  value: String
+  data: NbcShipAttributeData
+}
+
+type NbcShipAttributeData {
+  icon: String
+}
+
+interface NbcShipContent {
+  description: String
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+}
+
+type NbcTripFact {
+  id: Int
+  name: String
+  description: String
+  icon: String
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+}
+
+type NewsletterResponse {
+  success: Boolean!
+  errorCode: String
+}
+
+input NewsletterSubscribeFormInput {
+  email: String!
+  # Absolute URL to the confirmation page, f.e. https://alltours.de/newsletter,
+  # that will appear in the confirmation E-Mail
+  confirmationPage: String
+  # mandatory for alltours
+  salutation: String
+  # mandatory for alltours
+  firstName: String
+  # mandatory for alltours
+  lastName: String
+  # mandatory for alltours
+  privacy: Boolean
+}
+
+input NewsletterUnsubscribeFormInput {
+  email: String!
+}
+
+type NightlyRate {
+  # The date to which a rate element applies
+  date: String
+  # The total price for the product for the date including all taxes and fees.
+  price: Float
+}
+
+input NormalizedRangeInput {
+  min: Int!
+  max: Int!
+}
+
+type Offer {
+  # Unique identifier for Fusion.
+  id: ID!
+  # An md5 hash of the object, can be use to unique identify the offer.
+  hash: String!
+  # Unique identifier for providers.
+  externalId: String
+  tourOperator: TourOperator
+  # Code of the tour operator, used for federated connections
+  tourOperatorCode: String
+  departure: Flight
+  return: Flight
+  price: Price
+  rooms: OfferRooms
+  # The tour operator specific hotel code (e.g. PMI2134).
+  productCode: String!
+  # Length of stay refers to the nights in the hotel (e.g. 14).
+  lengthOfStay: Int!
+  # Proxied Date from offerStart.date
+  offerStartDate: Date
+  # For package offer is equal to Flight departure to the destination of travel.
+  # For hotel-only offer is equal to hotel check-in date.
+  offerStart: DateAndTime!
+  # For package offer is equal to Flight departure from the destination of travel.
+  # For hotel-only offer is equal to hotel check-out date.
+  offerEnd: DateAndTime!
+  # The brand of the touroperator (may differ).
+  brand: String
+  # Indicates sold out products.
+  soldOut: Boolean
+  # The code of the connected service where the offer comes from. Possible values: PEAKWORK, TRAVELTAINMENT.
+  sourceCode: String
+  # Fusion utility field (temporary).
+  hotelGiataId: String!
+  transferIncluded: Boolean
+  offerIncludes: [OfferOfferIncludesEnum!]
+  # The travel type (tour operator specific).
+  travelType: String
+  # The program type (tour operator specific).
+  programType: String
+  # The code of the offer provider
+  provider: String
+  # Identifies a Hotel, contains productCode, GiataID etc.
+  hotelContentId: OfferHotelContentId!
+  # The hotel offer category.
+  hotelOfferCategory: Float
+  identifier: OfferIdentifier
+  isInFavorites: Boolean!
+}
+
+type OfferBasedHotelContent implements NbcHotelContent {
+  identifier: OfferHotelContentId!
+  name: String
+  providerId: String
+  crsCode: String
+  ratingProviderId: String
+  category: String
+  location: NbcLocation
+  contentProvider: String
+  contentProviderExtension: JSON
+  description: NbcHotelContentDescription
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+  videos: [NbcHotelContentVideo]
+  # The Hotel's logo
+  logo: NbcHotelContentImage
+  # The Hotel's logo, inverted version
+  logoInverted: NbcHotelContentImage
+  nearestAirport: Airport
+  distanceToBeach: Float
+  distanceToAirport: Float
+  timeToAirport: Int
+  climate: NbcClimate
+}
+
+type OfferBasedHotelRatings {
+  hotelRatingsIdentifier: HotelRatingsIdentifier
+  ratings(groupCodes: [String!]): HotelRatings
+}
+
+type OfferBasedShipContent implements NbcShipContent {
+  identifier: OfferHotelContentId!
+  name: String
+  description: String
+  restaurantDescription: String
+  images: [NbcHotelContentImage]
+  mainImage: NbcHotelContentImage
+  ratingProviderId: String
+  providerId: String
+  crsCode: String
+  factSheet: FileType
+  water: Water
+  guideLanguages: [NbcGuideLanguage]
+  brand: Brand
+  cabins: [NbcCabin]
+  climate: NbcClimate
+  nbcAttributes: [NbcHotelContentAttribute]
+  longestRoute: [NbcItineraryPoint]
+  # The Hotel's logo
+  logo: NbcHotelContentImage
+  # The Hotel's logo, inverted version
+  logoInverted: NbcHotelContentImage
+}
+
+# An object containing multiple Ids to Identify a Hotel. `{ giataId: number,
+# productCode: string, tourOperatorCode: string, brand: string, provider: string,
+# departureDate: string, returnDate: string }
+scalar OfferHotelContentId
+# An object containing multiple fields to Identify a Offer.
+scalar OfferIdentifier
+
+input OfferInput {
+  # The md5 hash of the offer.
+  hash: String!
+  # The actual offer data to store.
+  offerData: JSON!
+}
+
+enum OfferOfferIncludesEnum {
+  ENTRANCE
+  EXCURSION
+  FREE_CANCELLATION
+  FREE_REBOOKING
+  GOLF_PASS
+  RAIL_AND_FLY
+  RENTAL_CAR
+  SKI_PASS
+  SPORT
+}
+
+# Multiple rooms and boards for up to four groups of travellers. At the moment usually only one group is supported.
+type OfferRooms {
+  room: [Room!]
+}
+
+input OfferUpsellInput {
+  offerStart: DateInput
+  offerEnd: DateInput
+  lengthOfStay: Int
+  room: RoomInput
+}
+
+input OptionLabelRequestInput {
+  value: String!
+  optionsField: OptionsField!
+}
+
+enum OptionsField {
+  globalTypes
+  globalTypesStatic
+  roomCodes
+  roomCodesStatic
+  roomViews
+  roomViewsStatic
+  boardCodes
+  boardCodesStatic
+  roomAttributes
+  hotelAttributes
+  tourOperators
+  destinations
+  departureAirports
+}
+
+enum PackageOfferIncludesEnum {
+  ENTRANCE
+  EXCURSION
+  FREE_CANCELLATION
+  FREE_REBOOKING
+  GOLF_PASS
+  RAIL_AND_FLY
+  RENTAL_CAR
+  SKI_PASS
+  SPORT
+}
+
+input PackageOfferRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  productSearch: ProductSearchInput!
+  pagination: PagingGroupFilterInput
+  sortingOrder: FilterSortingOrderEnum
+}
+
+type PackageOfferResponse {
+  facets: [Facet!]
+  pagination: PagingGroup
+  hotels: [HotelWithOffers!]
+}
+
+type PackageProduct {
+  hotel: Hotel
+  topOffer: Offer!
+  alternativeOffer: Offer
+  hotelContent: OfferBasedHotelContent
+  shipContent: OfferBasedShipContent
+}
+
+type PackageProductGroup {
+  topOffer: Offer
+  topHotel: Hotel
+  productGroup: [PackageProductGroup]
+  name: String!
+  code: String
+  description: String
+  countProductsInGroup: Int
+}
+
+input PackageProductGroupRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  productSearch: ProductSearchInput!
+  # The sorting of the tree.
+  sortingOrder: FilterSortingOrderEnum
+  # The nodeId to start with.
+  startNode: String
+  # Start level can be specified so that nodes can be skipped (children are flattened).
+  # Default = 0 (means nothing will be skipped).
+  startLevel: Int
+  # If to include groups that have no products.
+  includeEmptyResults: Boolean
+}
+
+type PackageProductGroupResponse {
+  facets: [Facet!]
+  pagination: PagingGroup
+  # Includes all details of the package products.
+  productGroups: [PackageProductGroup!]
+}
+
+input PackageProductRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  productSearch: ProductSearchInput!
+  pagination: PagingGroupFilterInput
+  sortingOrder: FilterSortingOrderEnum
+}
+
+type PackageProductResponse {
+  facets: [Facet!]
+  pagination: PagingGroup
+  # Includes all details of the package products.
+  packageProducts: [PackageProduct!]
+}
+
+input PackageVariantRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  productSearch: ProductSearchInput!
+  pagination: PagingGroupFilterInput
+  sortingOrder: FilterSortingOrderEnum
+  variant: VariantEnum
+}
+
+type PackageVariantResponse {
+  facets: [Facet!]
+  pagination: PagingGroup
+  bestOffers: [BestOffer!]
+}
+
+input Pagination {
+  # Items per page.
+  perPage: Int
+  # The page starts with **1**.
+  page: Int
+}
+
+type Paging {
+  resultsTotal: Int!
+  resultsPerPage: Int!
+}
+
+type PagingGroup {
+  type: String!
+  resultsTotal: Int!
+  showingResultsFrom: Int!
+  resultsPerPage: Int!
+  sortingOrder: PagingGroupSortingOrderEnum
+}
+
+input PagingGroupFilterInput {
+  type: String
+  resultsTotal: Int
+  showingResultsFrom: Int
+  resultsPerPage: Int
+}
+
+enum PagingGroupSortingOrderEnum {
+  PRICE_ASC
+  PRICE_DESC
+  LENGTH_OF_STAY_ASC
+  LENGTH_OF_STAY_DESC
+  START_DATE_ASC
+  START_DATE_DESC
+  DESTINATION_NAME_ASC
+  DESTINATION_NAME_DESC
+  HOTEL_NAME_ASC
+  HOTEL_NAME_DESC
+  HOTEL_CATEGORY_ASC
+  HOTEL_CATEGORY_DESC
+  HOTEL_RATING_ASC
+  HOTEL_RATING_DESC
+  DURATION_ASC
+  DURATION_DESC
+}
+
+input PagingInput {
+  page: Int!
+  resultsPerPage: Int!
+}
+
+# Specifies the type of person (ignored in the request). Values that can be returned are: infant, child, adult.
+enum PersonType {
+  adult
+  child
+  infant
+}
+
+enum PersonTypeInput {
+  adult
+  child
+  infant
+}
+
+# Information on prices.
+type Price {
+  # Returns a price break-down for every passenger.
+  priceByPax: Price
+  # The total amount.
+  amount: Float!
+  # The amount for full-price payers (ignored in the request).
+  perPersonAmount: Float
+  # The amount per night.
+  perNightAmount: Float!
+  # In case of requests with Rooms the traveller assigned to the priceByPax can be retrieved here.
+  # The attribute is ignored in the request.
+  refId: Int
+  # Information about a possible discount
+  discountInfo: DiscountInfo
+  personType: PersonType
+  # Specifies if the person is a full-price payer (ignored in the request).
+  fullPricePayer: Boolean
+  # The tariff class of the flight.
+  tariffClass: String!
+  # If the Price attribute is set to \"taxes\" in the request, the taxes are displayed in the attribute
+  # TaxAmount of the Price element in the response.
+  taxAmount: Float!
+  # Currency in format ISO 4217 (e.g. "EUR")
+  currency: String!
+}
+
+input PriceRangeFilterInput {
+  # Specifies the minimal total amount (including all travellers) for the travel.
+  minPrice: Int!
+  # Specifies the maximum total amount (including all travellers) for the travel.
+  maxPrice: Int!
+}
+
+input ProductSearchInput {
+  bookingType: BookingTypeEnum
+  # The nodeId(s) (destinations) to (deep) filter the products / tree with.
+  nodeCodes: [String!]
+  # Note! at least one adult should be present.
+  travellersFilter: [TravellerFilterInput!]
+  # Optional room configuration for travellers
+  travellersRooms: [TravellersRoomInput!]
+  travelPeriod: TravelPeriodFilterInput
+  priceRangeFilter: PriceRangeFilterInput
+  hotelFilter: RequestBaseHotelFilterInput
+  flightDetailsFilter: FlightDetailsFilterInput
+  brandFilter: RequestBaseBrandFilterInput
+  travelTypeFilter: TravelTypeFilterInput
+  transferIncluded: Boolean
+  discountOnly: Boolean
+  offerIncludes: [PackageOfferIncludesEnum!]
+  programType: String
+  vouchers: [String!]
+}
+
+type ProviderInfoType {
+  name: String
+  type: String
+  ids: [String!]
+}
+
+type Query implements NBCHotelContentQueryInterface {
+  # Returns all product groups that comply with the request criteria just as they are set up in the used GeoTree.
+  productGroups(
+    packageProductGroupRequest: PackageProductGroupRequestInput!
+  ): PackageProductGroupResponse
+  # Returns offers for the given product that fulfill the request criteria.
+  productOffers(
+    packageOfferRequest: PackageOfferRequestInput!
+  ): PackageOfferResponse
+  # Returns products that have at least one offer that fulfills the request criteria.
+  products(
+    packageProductRequest: PackageProductRequestInput!
+  ): PackageProductResponse
+  # Returns the cheapest offer that fulfills the specified request criteria for the given variant.
+  # Check VariantEnum for available variants.
+  variants(
+    packageVariantRequest: PackageVariantRequestInput!
+  ): PackageVariantResponse
+  # Returns static options.
+  options(formDataRequest: FormDataRequestInput): FormDataResponse
+  # Returns a label for a given option value.
+  optionLabel(
+    optionLabelRequest: OptionLabelRequestInput!
+    formDataRequest: FormDataRequestInput
+  ): String
+  # Searches for a hotel with a name matching the given query.
+  hotelSearch(
+    hotelSearchRequest: HotelSearchRequestInput!
+  ): [HotelSearchResultItem]
+    @deprecated(reason: "Use keywordSearch query instead")
+  # Searches for a hotel, destination, global types with a name matching the given query.
+  keywordSearch(
+    keywordSearchRequest: KeywordSearchRequestInput!
+  ): KeywordSearchResponse
+  # Searches for an offer with the same parameters but for another booking type
+  # (package if current offer is hotel-only and vice versa).
+  # If the exact match by room and travel period parameters cannot be found,
+  # tries to search for a match without room parameters.
+  # Frontend has to take care of displaying a warning for a user in the second case.
+  bookingTypeOfferUpsell(upsellRequest: UpsellRequestInput!): UpsellResponse
+  # Provides all flight alternatives for every possible accommodation part.
+  flightAlternatives(
+    flightAlternativesRequest: FlightAlternativesRequestInput!
+  ): FlightAlternativesResponse
+  # Returns offer based NBC content for the given id that should be taken from the Offer.hotelContentId field.
+  # The id is an object containing giata id of a hotel and offer based data -
+  # departure date, source code, tour operator code, product code, brand, provider.
+  # The hotelContentId has the following form:
+  #
+  # {
+  # giataId: number,
+  # departureDate: string,
+  # productCode: string,
+  # tourOperatorCode: string,
+  # brand: string,
+  # provider: string
+  # }
+
+  offerHotelContent(hotelContentId: OfferHotelContentId!): NbcHotelContent
+  roomOverview(hotelContentId: OfferHotelContentId!): NbcRoomOverview
+  cabinOverview(hotelContentId: OfferHotelContentId!): NbcCabinOverview
+  offerShipContent(hotelContentId: OfferHotelContentId!): NbcShipContent
+  # Returns static options.
+  cruiseOptions(
+    formDataRequest: CruiseFormDataRequestInput
+  ): CruiseFormDataResponse
+  cruiseList(hotelContentId: OfferHotelContentId): [NbcCruise]
+  # Returns list of images
+  instagramImages(accessToken: String!): [NbcInstagramImage]
+  # Get the exchange rate between two currencies.
+  currencyExchangeRate(
+    currencyExchangeRequest: CurrencyExchangeInput!
+  ): CurrencyExchangeResponse
+  # Returns list of reviews
+  reviews(filter: ReviewsFilter!, paging: PagingInput!): HotelReviews
+  # Returns list of ratings
+  ratings(filter: ReviewsFilter!): HotelRatings
+  # Returns list of ratings group codes that can be used in UI later (for example to show tabs).
+  hotelRatingGroupCodes: [String!]
+  # Fetches the list of favorite items. Requires the **fcseuid** header to be present.
+  favorites(
+    uid: String = ""
+    hash: String
+    pager: Pagination
+  ): FavoritesListData
+  # Fetches the list of favorite offers' hashes. Requires the **fcseuid** header to be present.
+  favoriteIds(uid: String = ""): [String!]
+}
+
+# The (hotel) rating.
+type Rating {
+  # The name of the rated attribute.
+  name: String
+  # The value against which the attribute is tested.
+  value: Float!
+  # Provides info if this rating attribute was requested in normalized form. See RatingFilter.
+  normalized: Boolean
+}
+
+enum RatingFilterCodeEnum {
+  averageRating
+  ratingCount
+  recommendationRate
+  ratingBusiness
+  ratingCouple
+  ratingFamily
+  ratingSolo
+  scoreBeachAll
+  scoreFoodAll
+  scoreLocationAll
+  scoreRoomAll
+  scoreServiceAll
+  scoreFoodBusiness
+  scoreLocationBusiness
+  scoreRoomBusiness
+  scoreServiceBusiness
+  scoreBeachCouple
+  scoreFoodCouple
+  scoreLocationCouple
+  scoreRoomCouple
+  scoreServiceCouple
+  scoreBeachFamily
+  scoreFoodFamily
+  scoreLocationFamily
+  scoreRoomFamily
+  scoreServiceFamily
+  scoreBeachSolo
+  scoreFoodSolo
+  scoreLocationSolo
+  scoreRoomSolo
+  scoreServiceSolo
+}
+
+input RatingFilterInput {
+  code: RatingFilterCodeEnum!
+  value: Int!
+  operator: RatingFilterOperatorEnum
+  normalized: Boolean
+  # Normalization Range will be applied to the value before and after connector request.
+  # Example:
+  # value: 50; normalized: true; normalizedRange: {min: 0, max: 100}
+  # provider: "trustyou"
+  # provider configuration: {min: 5, max: 10}
+
+  # normalized value = 7,5
+  normalizedRange: NormalizedRangeInput
+  provider: RatingProvider
+}
+
+enum RatingFilterOperatorEnum {
+  EQ
+  LT
+  GT
+  LE
+  GE
+  NE
+}
+
+enum RatingProvider {
+  default
+  trustyou
+  tripadvisor
+  HolidayCheck
+  noop_provider
+}
+
+type Ratings {
+  rating: [Rating!]
+  # The name of the rating provider.
+  provider: RatingProvider
+  # The HotelID of the rating provider. The attribute is not used in the request.
+  providerProductId: String
+}
+
+type References {
+  giataCodes: [Int!]
+  opicCodes: [Int!]
+  iffCodes: [Int!]
+  drvCodes: [Int!]
+  hotelIds: [Int!]
+}
+
+type Region {
+  name: String
+  code: String
+}
+
+# Kind of filter to be used.
+enum RequestBaseBrandFilterFilterModeEnum {
+  INCLUDE
+  EXCLUDE
+}
+
+input RequestBaseBrandFilterInput {
+  # A list of tour operator abbreviations.
+  tourOperatorCodes: [String!]
+  # Kind of filter to be used.
+  filterMode: RequestBaseBrandFilterFilterModeEnum
+}
+
+input RequestBaseHotelFilterInput {
+  ratings: [RatingFilterInput!]
+  hotelAttributesFilter: HotelAttributesFilterInput
+  hotelLanguagesFilter: HotelLanguagesFilterInput
+  hotelActivitiesFilter: HotelActivitiesFilterInput
+  hotelCategoryFilter: HotelCategoryFilterInput
+  # deprecated, use hotelCategoryFilter instead
+  minCategory: Float
+  # deprecated, use hotelCategoryFilter instead
+  maxCategory: Float
+  roomCodes: [String!]
+  roomAttributes: [String!]
+  roomViews: [String!]
+  boardCodes: [String!]
+  hotelNames: [String!]
+  productCodes: [String!]
+  references: [HotelReferenceInput!]
+  # Contains the tour operator specific room code (mapped to TT roomCode).
+  roomOpCode: String
+}
+
+
+type RoomView {
+  name: String
+  localizedName: String
+}
+
+
+# A time string in HH:mm format
+scalar Time
+
+input TimeRangeFilterInput {
+  minTime: Time
+  maxTime: Time
+}
+
+type TourOperator {
+  # The tour operator (e.g. ITS Reisen, Neckermann).
+  name: String
+  # The tour operator code (e.g. NEC).
+  code: String
+  # This bit field contains information on the product types offered by the tour operator.
+  # First bit (bit 0) stands for package, the second (bit 1) for HotelOnly, the third (bit 2) for
+  # FlightOnly and the fourth (bit 3) for Services.
+  inventory: Int
+  # The tour operator code (e.g. NEC).
+  parent: String
+}
+
+type TourOperatorFormData {
+  code: String
+  name: String
+  sourceCode: String
+}
+
+input TravellerFilterInput {
+  # The age (in years) at the travel start date.
+  age: Int!
+  # A unique reference number to be used for specifying travelling groups of persons.
+  # Indexing starts with 1 (not 0). RefId must be unique for all travellers, no matter whether they are
+  # Adult or Child. The RefId is optional and can be used to assign a traveller to a Room in the Rooms element.
+  # This is necessary for requests with more than one Room element.
+  refId: Int
+}
+
+input TravellersRoomInput {
+  # The Travelers assigned to this room
+  refIds: [Int!]!
+  # Optional identifier
+  id: String
+}
+
+# If set to \"hotel\" the value specified in Duration refers to the length(s) of stay in the hotel.
+# If set to \"flight\" the specified Duration(s) include flight times
+# (start of outbound flight until start of inbound flight).
+# In case of overnight flight this shortens the stay of the hotel.
+enum TravelPeriodFilterDurationKindEnum {
+  HOTEL
+  FLIGHT
+}
+
+input TravelPeriodFilterInput {
+  departureDateTime: DateTimeRangeFilterInput
+  returnDateTime: DateTimeRangeFilterInput
+  # Specifies the min duration (length of stay: LOS) as integer represents the count of days/nights.
+  minDuration: Int!
+  # Specifies the max duration as integer (length of stay: LOS).
+  maxDuration: Int!
+  # If set to \"hotel\" the value specified in Duration refers to the length(s)
+  # of stay in the hotel. If set to \"flight\" the specified Duration(s) include flight times
+  # (start of outbound flight until start of inbound flight).
+  # In case of overnight flight this shortens the stay of the hotel.
+  durationKind: TravelPeriodFilterDurationKindEnum
+}
+
+type TravelTypeFilter {
+  filterMode: TravelTypeFilterFilterModeEnum
+  travelType: String!
+}
+
+enum TravelTypeFilterFilterModeEnum {
+  INCLUDE
+  EXCLUDE
+}
+
+input TravelTypeFilterInput {
+  filterMode: TravelTypeFilterFilterModeEnum
+  travelType: String!
+}
+
+input UpsellRequestInput {
+  metaAttributeFilter: MetaAttributeFilterInput
+  productSearch: ProductSearchInput!
+  pagination: PagingGroupFilterInput
+  upsellType: BookingTypeEnum
+  offer: OfferUpsellInput
+}
+
+type UpsellResponse {
+  # Indicates if found offer matches all provided offer parameters.
+  # Frontend has to take care of displaying a warning for a user if there is no exact match.
+  exactMatch: Boolean
+  offer: Offer
+}
+
+enum VariantEnum {
+  TOUR_OPERATOR
+  ROOM_CODE
+  DATE
+  BOARD_CODE
+  ROOM_VIEW_COMBI_CODE
+  DEPARTURE_AIRPORTS
+  AIRLINE
+}
+
+type Water {
+  id: Int
+  name: String
+  providerId: String
+}
+

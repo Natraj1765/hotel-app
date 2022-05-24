@@ -1,0 +1,309 @@
+query getOfferList($packageOfferRequest: PackageOfferRequestInput!, $includeRoomDescription: Boolean = false) {
+  productOffers(packageOfferRequest: $packageOfferRequest) {
+    hotels {
+      offers {
+        ...detailOfferData
+        __typename
+      }
+      __typename
+    }
+    pagination {
+      resultsTotal
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment detailOfferData on Offer {
+  id
+  externalId
+  hash
+  hotelContentId
+  hotelOfferCategory
+  isInFavorites
+  productCode
+  lengthOfStay
+  sourceCode
+  price {
+    amount
+    perPersonAmount
+    perNightAmount
+    taxAmount
+    currency
+    refId
+    discountInfo {
+      ...discountInfoFields
+      __typename
+    }
+    __typename
+  }
+  departure {
+    departureAirport {
+      name
+      code
+      __typename
+    }
+    arrivalAirport {
+      name
+      code
+      __typename
+    }
+    airline {
+      name
+      code
+      __typename
+    }
+    arrivalDateTime {
+      date
+      time
+      __typename
+    }
+    departureDateTime {
+      date
+      time
+      __typename
+    }
+    flightKey
+    flightCode
+    flightID
+    flightLabel
+    flightNumber
+    duration
+    priority
+    stopOver
+    distance
+    bookingCode
+    bookingClass
+    flightSegments {
+      flightNumber
+      arrivalDateTime {
+        date
+        time
+        __typename
+      }
+      departureDateTime {
+        date
+        time
+        __typename
+      }
+      departureAirport {
+        name
+        code
+        __typename
+      }
+      arrivalAirport {
+        name
+        code
+        __typename
+      }
+      airline {
+        name
+        code
+        __typename
+      }
+      duration
+      distance
+      bookingClass
+      __typename
+    }
+    __typename
+  }
+  return {
+    departureAirport {
+      name
+      code
+      __typename
+    }
+    arrivalAirport {
+      name
+      code
+      __typename
+    }
+    airline {
+      name
+      code
+      __typename
+    }
+    arrivalDateTime {
+      date
+      time
+      __typename
+    }
+    departureDateTime {
+      date
+      time
+      __typename
+    }
+    flightKey
+    flightCode
+    flightID
+    flightLabel
+    flightNumber
+    duration
+    priority
+    stopOver
+    distance
+    bookingCode
+    bookingClass
+    flightSegments {
+      flightNumber
+      arrivalDateTime {
+        date
+        time
+        __typename
+      }
+      departureDateTime {
+        date
+        time
+        __typename
+      }
+      departureAirport {
+        name
+        code
+        __typename
+      }
+      arrivalAirport {
+        name
+        code
+        __typename
+      }
+      airline {
+        name
+        code
+        __typename
+      }
+      duration
+      distance
+      bookingClass
+      __typename
+    }
+    __typename
+  }
+  tourOperator {
+    name
+    code
+    __typename
+  }
+  offerStart {
+    date
+    time
+    __typename
+  }
+  offerEnd {
+    date
+    time
+    __typename
+  }
+  rooms {
+    room {
+      board {
+        label
+        description
+        code
+        opCode
+        name
+        localizedName
+        __typename
+      }
+      opCode
+      description @include(if: $includeRoomDescription)
+      nbcAttributes {
+        code
+        name
+        icon
+        localizedName
+        __typename
+      }
+      extras {
+        type
+        included
+        __typename
+      }
+      extraBeds
+      priceByUnit
+      views {
+        code
+        label
+        __typename
+      }
+      roomKey
+      mainImage {
+        preview: proxyImageForSize(width: 10, height: 10) {
+          url
+          __typename
+        }
+        default: proxyImageForSize(width: 383, height: 257) {
+          url
+          __typename
+        }
+        default2x: proxyImageForSize(width: 766, height: 514) {
+          url
+          __typename
+        }
+        __typename
+      }
+      images {
+        original: proxyImageForSize(width: 708, height: 470) {
+          size {
+            width
+            height
+            __typename
+          }
+          url
+          __typename
+        }
+        thumbnail210x140: proxyImageForSize(width: 210, height: 140) {
+          size {
+            width
+            height
+            __typename
+          }
+          url
+          __typename
+        }
+        __typename
+      }
+      name
+      localizedName
+      size
+      codes {
+        code
+        label
+        __typename
+      }
+      roomView {
+        name
+        localizedName
+        __typename
+      }
+      price {
+        amount
+        perPersonAmount
+        taxAmount
+        currency
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  programType
+  travelType
+  brand
+  soldOut
+  offerIncludes
+  transferIncluded
+  __typename
+}
+
+fragment discountInfoFields on DiscountInfo {
+  fullAmount
+  fullDiscountPercentage
+  discountAmount
+  discountReason
+  discountAmountPerNight
+  perNightFullAmount
+  perNightDiscountPercentage
+  __typename
+}

@@ -1,0 +1,14 @@
+query getHotelsAutocomplete($keyword: String!, $bookingType: BookingTypeEnum!) {
+  hotelSearch(hotelSearchRequest: {query: $keyword, bookingType: $bookingType}) {
+    label: name
+    references {
+      giataCodes
+      hotelIds
+      opicCodes
+      iffCodes
+      drvCodes
+      __typename
+    }
+    __typename
+  }
+}

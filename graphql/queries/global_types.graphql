@@ -1,0 +1,20 @@
+query globalTypes {
+  options(formDataRequest: {msgTypes: GLOBAL_TYPES}) {
+    globalTypesStatic {
+      label
+      value
+      data {
+        icon
+        hidden
+        __typename
+      }
+      children {
+        label
+        value
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}

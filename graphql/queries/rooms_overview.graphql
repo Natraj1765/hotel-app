@@ -1,0 +1,30 @@
+query getRoomOverview($hotelContentId: OfferHotelContentId!) {
+  roomOverview(hotelContentId: $hotelContentId) {
+    localizedDescription
+    description
+    rooms {
+     mainImage {
+        default2x: proxyImageForSize(width: 766, height: 514) {
+          url
+        }
+      }
+      providerId
+      name
+      localizedName
+      description
+      size
+      roomView {
+        name
+        localizedName
+      }
+      nbcAttributes {
+        code
+        icon
+        name
+        localizedName
+      }
+
+    }
+
+  }
+}

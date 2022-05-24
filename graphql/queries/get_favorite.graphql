@@ -1,0 +1,9 @@
+query favoritesInfo {
+  favorites {
+    id
+    count
+    ownIdentity
+    __typename
+  }
+  favoriteIds
+}

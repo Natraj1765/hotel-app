@@ -1,0 +1,24 @@
+query getHotelReviews($filter: ReviewsFilter!, $paging: PagingInput!) {
+  hotelRatingGroupCodes
+  reviews(filter: $filter, paging: $paging) {
+    pageInfo {
+      resultsTotal
+      __typename
+    }
+    list {
+      ratingAllOver
+      headline
+      title
+      firstName
+      age
+      monthOfTravel
+      yearOfTravel
+      travelledAs
+      conclusion
+      ratingId
+      fullReviewUrl
+      __typename
+    }
+    __typename
+  }
+}

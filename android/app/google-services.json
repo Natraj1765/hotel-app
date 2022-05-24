@@ -1,0 +1,163 @@
+{
+  "project_info": {
+    "project_number": "787426090971",
+    "firebase_url": "https://niwhotel.apps.firebaseio.com",
+    "project_id": "niwhotel.apps",
+    "storage_bucket": "niwhotel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787426090971:android:2410efd79c591875",
+        "android_client_info": {
+          "package_name": "com.example.jhg_data_helper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787426090971-hlmqeem29lr7cv1dlqfgk2on1n6e4c1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jhg_data_helper",
+            "certificate_hash": "c6a4879aecb7f85200ef66871f36650d28b3419f"
+          }
+        },
+        {
+          "client_id": "787426090971-4q3p2ngm9vas8r7qq4n1u3marta4u4df.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiuEsBLbw8BnVnI-s01LKP9TN4So5oDjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787426090971-4q3p2ngm9vas8r7qq4n1u3marta4u4df.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "787426090971-ov0uj4kkqneikriaa2n89ofla2v18cc8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "niwhotel.apps.com"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787426090971:android:b4a6db7b5ee37fab",
+        "android_client_info": {
+          "package_name": "niwhotel.apps.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787426090971-1abn4sugrknplrtbqu5defgi04qts28m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "7afc0828463f3b9c81f0c0d01dfc54e6f312732e"
+          }
+        },
+        {
+          "client_id": "787426090971-21g4hqd4e9dfi2g6miggsjrs5dfo606h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "b57cf8ab885b504c779494850029925f52fe1dca"
+          }
+        },
+        {
+          "client_id": "787426090971-4nu3dg3a66b3i5eo7gf12r6ncaho5ulc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "ecddfc840dbd5aa0db9c6cd14f29dad4e5070295"
+          }
+        },
+        {
+          "client_id": "787426090971-6h0e4jq9cmlg186r49hodq75uaj095hn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "6f96d060a898020cffd4e7ceeeef83d94dea1c39"
+          }
+        },
+        {
+          "client_id": "787426090971-6i0e36ojao9uabuj1u9npb85d4qkiv6a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "2135ec068a6ad902245beaf06b2f28e238effbe8"
+          }
+        },
+        {
+          "client_id": "787426090971-79jamkcmkjs2vj8qdfova294c519ipf5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "afb2ca89dcb400cfb0bc3e4eef07e253f652159f"
+          }
+        },
+        {
+          "client_id": "787426090971-9uam2pig7isrbv0kfs60u8eh3v3p5g3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "d26408f0535cfb2ff3f0dcc142c012f9e45d1ae1"
+          }
+        },
+        {
+          "client_id": "787426090971-nc4b0ot8d8b43r7t14csd5gkthpdefc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "e5c23b2a97b8c9c0fcdfa46b99f0347bc2f3633d"
+          }
+        },
+        {
+          "client_id": "787426090971-p8sqh1jj5pkuadm2vkql0d68ahlog804.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "niwhotel.apps.com",
+            "certificate_hash": "d1b3f387a83db4920c8740ab24bb7f683f9f456e"
+          }
+        },
+        {
+          "client_id": "787426090971-4q3p2ngm9vas8r7qq4n1u3marta4u4df.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiuEsBLbw8BnVnI-s01LKP9TN4So5oDjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787426090971-4q3p2ngm9vas8r7qq4n1u3marta4u4df.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "787426090971-ov0uj4kkqneikriaa2n89ofla2v18cc8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "niwhotel.apps.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

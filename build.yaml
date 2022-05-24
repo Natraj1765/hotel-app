@@ -1,0 +1,25 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - graphql/queries/**
+      - graphql/schema.graphql
+
+    builders:
+      artemis:
+        options:
+#          fragments_glob: graphql/fragments/common.graphql
+          schema_mapping:
+            - schema: graphql/schema.graphql
+              queries_glob: graphql/queries/**.graphql
+              output: lib/models/graphql/graphql_api.dart
+              naming_scheme: pathedWithFields
+          scalar_mapping:
+            - graphql_type: Date
+              dart_type: DateTime
+            - graphql_type: OfferHotelContentId
+              dart_type: Map<String, dynamic>
+            - graphql_type: Time
+              dart_type: String
+            - graphql_type: JSON
+              dart_type: Map<String, dynamic>
