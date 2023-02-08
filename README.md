@@ -1,1 +1,1 @@
-# jaz-mobile-app
+# hotel-management-app
